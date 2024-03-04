@@ -1,13 +1,25 @@
 using UnitsNet;
+using UnitsNet.NumberExtensions.NumberToLength;
 using WPIMath.Interpolation;
 
 namespace WPIMath.Kinematics
 {
-    public readonly struct DifferentialDriveWheelPositions(Length leftDistance, Length rightDistance) : IWheelPositions<DifferentialDriveWheelPositions>,
+    public readonly struct DifferentialDriveWheelPositions : IWheelPositions<DifferentialDriveWheelPositions>,
                                                                 IInterpolatable<DifferentialDriveWheelPositions>
     {
-        public Length LeftDistance { get; } = leftDistance;
-        public Length RightDistance { get; } = rightDistance;
+        public Length LeftDistance { get; }
+        public Length RightDistance { get; }
+
+        public DifferentialDriveWheelPositions() : this(0.Meters(), 0.Meters())
+        {
+
+        }
+
+        public DifferentialDriveWheelPositions(Length leftDistance, Length rightDistance) 
+        {
+            LeftDistance = leftDistance;
+            RightDistance = rightDistance;
+        }
 
         public DifferentialDriveWheelPositions Copy()
         {

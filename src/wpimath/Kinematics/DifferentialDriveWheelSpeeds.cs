@@ -1,11 +1,21 @@
 using UnitsNet;
+using UnitsNet.NumberExtensions.NumberToSpeed;
 
 namespace WPIMath.Kinematics
 {
-    public struct DifferentialDriveWheelSpeeds(Speed left, Speed right)
+    public struct DifferentialDriveWheelSpeeds
     {
-        public Speed Left { get; private set; } = left;
-        public Speed Right { get; private set; } = right;
+        public Speed Left { get; private set; }
+        public Speed Right { get; private set; }
+
+        public DifferentialDriveWheelSpeeds() : this(0.MetersPerSecond(), 0.MetersPerSecond()) {
+
+        }
+
+        public DifferentialDriveWheelSpeeds(Speed leftSpeed, Speed rightSpeed) {
+            Left = leftSpeed;
+            Right = rightSpeed;
+        }
 
         /// <summary>
         /// Renormalizes the wheel speeds if any either side is above the specified maximum.

@@ -1,6 +1,7 @@
-using System.Numerics;
+﻿using System.Numerics;
 using Google.Protobuf.Reflection;
 using UnitsNet;
+using UnitsNet.NumberExtensions.NumberToFrequency;
 using UnitsNet.NumberExtensions.NumberToRotationalSpeed;
 using UnitsNet.NumberExtensions.NumberToSpeed;
 using WPIMath.Geometry;
@@ -20,17 +21,17 @@ public readonly struct ChassisSpeeds : IAdditionOperators<ChassisSpeeds, Chassis
     /// <summary>
     /// Chassis velocity in the X-axis (Forward is positive).
     /// </summary>
-    public Speed Vx { get; } = Speed.FromMetersPerSecond(0);
+    public Speed Vx { get; init; }
 
     /// <summary>
     /// Chassis velocity in the Y-axis (Left is positive).
     /// </summary>
-    public Speed Vy { get; } = Speed.FromMetersPerSecond(0);
+    public Speed Vy { get; init; }
 
     /// <summary>
     /// Chassis Angular velocity (Z-axis or theta, Counter-Clockwise is positive).
     /// </summary>
-    public RotationalSpeed Omega { get; } = RotationalSpeed.FromRadiansPerSecond(0);
+    public RotationalSpeed Omega { get; init; }
 
     public static IProtobuf<ChassisSpeeds, ProtobufChassisSpeeds> Proto { get; } = new ChassisSpeedsProto();
     public static IStruct<ChassisSpeeds> Struct { get; } = new ChassisSpeedsStruct();
@@ -38,7 +39,7 @@ public readonly struct ChassisSpeeds : IAdditionOperators<ChassisSpeeds, Chassis
     /// <summary>
     /// Constructs a new ChassisSpeeds object with zero velocity on all axes.
     /// </summary>
-    public ChassisSpeeds() { }
+    public ChassisSpeeds() : this(0.MetersPerSecond(), 0.MetersPerSecond(), RotationalSpeed.Zero) { }
 
     /// <summary>
     /// Constructs a new ChassisSpeeds object with the given velocities.
@@ -51,19 +52,6 @@ public readonly struct ChassisSpeeds : IAdditionOperators<ChassisSpeeds, Chassis
         this.Vx = Vx;
         this.Vy = Vy;
         this.Omega = Omega;
-    }
-
-    /// <summary>
-    /// Constructs a new ChassisSpeeds object with the given velocities.
-    /// </summary>
-    /// <param name="vx">Chassis velocity in the X-axis (Forward is positive) in meters per second.</param>
-    /// <param name="vy">Chassis velocity in the Y-axis (Left is positive) in meters per second.</param>
-    /// <param name="omega">Chassis Angular velocity (Z-axis or theta, Counter-Clockwise is positive) in radians per second.</param>
-    public ChassisSpeeds(double vx, double vy, double omega)
-    {
-        Vx = vx.MetersPerSecond();
-        Vy = vy.MetersPerSecond();
-        Omega = omega.RadiansPerSecond();
     }
 
     /// <summary>

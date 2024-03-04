@@ -1,4 +1,4 @@
-using UnitsNet;
+﻿using UnitsNet;
 using UnitsNet.NumberExtensions.NumberToAngle;
 using UnitsNet.NumberExtensions.NumberToSpeed;
 using WPIMath.Geometry;
@@ -70,8 +70,11 @@ public class ChassisSpeedsTest
     [Fact]
     public void TestFromFieldRelative()
     {
-
-        ChassisSpeeds fieldSpeeds = new(1.0, 0.0, 0.5);
+        ChassisSpeeds fieldSpeeds = new(
+            Speed.FromMetersPerSecond(1.0), 
+            Speed.FromMetersPerSecond(1.0), 
+            RotationalSpeed.FromRadiansPerSecond(0.5)
+        );
         ChassisSpeeds robotSpeeds = ChassisSpeeds.FromFieldRelativeSpeeds(fieldSpeeds, new Rotation2d(-90.Degrees()));
 
         Assert.Equal(0.0, robotSpeeds.Vx.MetersPerSecond, Epsilon);
@@ -82,7 +85,11 @@ public class ChassisSpeedsTest
     [Fact]
     public void TestFromRobotRelative()
     {
-        ChassisSpeeds robotSpeeds = new(1.0, 0.0, 0.5);
+        ChassisSpeeds robotSpeeds = new(
+            Speed.FromMetersPerSecond(1.0), 
+            Speed.FromMetersPerSecond(1.0), 
+            RotationalSpeed.FromRadiansPerSecond(0.5)
+        );
         ChassisSpeeds fieldSpeeds = ChassisSpeeds.FromRobotRelativeSpeeds(robotSpeeds, new Rotation2d(45.Degrees()));
 
         Assert.Equal(1.0 / Math.Sqrt(2.0), fieldSpeeds.Vx.MetersPerSecond, Epsilon);
@@ -93,7 +100,11 @@ public class ChassisSpeedsTest
     [Fact]
     public void TestDiscretize()
     {
-        ChassisSpeeds target = new(1, 0.0, 0.5);
+        ChassisSpeeds target = new(
+            Speed.FromMetersPerSecond(1.0), 
+            Speed.FromMetersPerSecond(0.0), 
+            RotationalSpeed.FromRadiansPerSecond(0.5)
+        );
         TimeSpan duration = TimeSpan.FromSeconds(1);
         TimeSpan dt = TimeSpan.FromSeconds(0.01);
 
