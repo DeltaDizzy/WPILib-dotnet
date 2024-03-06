@@ -1,3 +1,5 @@
+using UnitsNet.NumberExtensions.NumberToRotationalSpeed;
+using UnitsNet.NumberExtensions.NumberToSpeed;
 using WPIUtil.Serialization.Struct;
 using Xunit;
 
@@ -5,7 +7,7 @@ namespace WPIMath.Test.Kinematics.Struct
 {
     public class ChassisSpeedsStructTest
     {
-        readonly ChassisSpeeds data = new(1.0, 2.0, 3.0);
+        readonly ChassisSpeeds data = new(1.MetersPerSecond(), 2.MetersPerSecond(), 3.RadiansPerSecond());
 
         [Fact]
         public void TestRoundtrip()

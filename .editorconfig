@@ -125,6 +125,7 @@ csharp_preserve_single_line_blocks = true
 # enable internal WPILib diagnostics
 dotnet_diagnostic.WPILIB1100.severity = warning
 dotnet_diagnostic.WPILIB1101.severity = warning
+dotnet_diagnostic.IDE0290.severity = none
 ###############################
 # VB Coding Conventions       #
 ###############################
